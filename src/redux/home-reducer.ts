@@ -3,7 +3,7 @@ type TodoType = {
     isComplete: boolean,
     text: string,
 }
-type InitStateType = {
+export type InitStateType = {
     todos: Array<TodoType>,
     inputText: string,
 }
@@ -33,6 +33,6 @@ let homeReducer = (state = initState, action: any):InitStateType => {
     }
 }
 
-let onTextChange = (text: string): OnTextChangeActionType => ({type: TEXT_CHANGE, text});
+export let onTextChange = (text: string): OnTextChangeActionType => ({type: TEXT_CHANGE, text});
 
 export default homeReducer;
