@@ -1,4 +1,4 @@
-type TodoType = {
+export type TodoType = {
     id: number,
     isComplete: boolean,
     text: string,
@@ -11,8 +11,12 @@ type OnTextChangeActionType = {
     type: typeof TEXT_CHANGE,
     text: string
 }
+type OnAddTodoActionType = {
+    type: typeof ADD_TODO,
+}
 
 const TEXT_CHANGE = "TEXT_CHANGE";
+const ADD_TODO = "ADD_TODO";
 
 
 let initState: InitStateType = {
@@ -28,11 +32,18 @@ let homeReducer = (state = initState, action: any):InitStateType => {
                 inputText: action.text
             }
         }
+        case ADD_TODO:{
+            return {
+                ...state,
+                todos: [...state.todos, {id: 2, isComplete: false, text: state.inputText}]
+            }
+        }
         default:
             return state;
     }
 }
 
 export let onTextChange = (text: string): OnTextChangeActionType => ({type: TEXT_CHANGE, text});
+export let onAddTodo = () => ({type: ADD_TODO});
 
 export default homeReducer;
