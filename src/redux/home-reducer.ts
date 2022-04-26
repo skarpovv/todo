@@ -20,7 +20,7 @@ const ADD_TODO = "ADD_TODO";
 
 
 let initState: InitStateType = {
-    todos: [{id: 1, isComplete: true, text: "Hello"}],
+    todos: [],
     inputText: "",
 }
 

@@ -34,7 +34,7 @@ const Main = () => {
                        />
             <Button
                 variant="contained"
-                onClick={(e) => {addTodo()}}>Add Todo</Button>
+                onClick={(e) => {addTodo(); changeText("")}}>Add Todo</Button>
             <Todos/>
         </Box>
 
