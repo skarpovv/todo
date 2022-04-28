@@ -10,7 +10,8 @@ let MainStyle: object = {
     height: "100%",
     backgroundColor: "white",
     textAlign: "center",
-    marginTop: "20px"
+    marginTop: "20px",
+    transition: "all ease 0.6s"
 }
 let InputStyle = {
     display: "flex",

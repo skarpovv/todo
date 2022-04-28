@@ -7,7 +7,8 @@ import Todo from "./Todo";
 let StyledTodos: object = {
     width: "70%",
     margin: "0 auto",
-    border: "10px solid #fff"
+    border: "10px solid #fff",
+    transition: "all ease 0.6s"
 }
 
 const Todos = () => {
@@ -15,7 +16,7 @@ const Todos = () => {
 
     let todos:Array<TodoType> = useSelector((state:any) => state.home.todos);
     let JSXtodos: Array<JSX.Element> = todos.map((el:TodoType) => {
-        return <Todo key={el.id} id={el.id} text = {el.text} isComplete = {el.isComplete}/>
+        return <Todo isEdit={el.isEdit} key={el.id} id={el.id} text = {el.text} isComplete = {el.isComplete}/>
     })
 
     return (

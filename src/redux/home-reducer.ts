@@ -1,5 +1,6 @@
 export type TodoType = {
     id: string,
+    isEdit: boolean,
     isComplete: boolean,
     text: string,
 }
@@ -52,7 +53,7 @@ let homeReducer = (state = initState, action: any):InitStateType => {
         case ADD_TODO:{
             return {
                 ...state,
-                todos: [...state.todos, {id: state.todos.length + state.inputText, isComplete: false, text: state.inputText}]
+                todos: [...state.todos, {id: state.todos.length + state.inputText, isComplete: false, text: state.inputText, isEdit: false}]
             }
         }
         case TOGGLE_INPUT_STATE:{
@@ -84,10 +85,10 @@ let homeReducer = (state = initState, action: any):InitStateType => {
     }
 }
 
-export let onTextChange = (text: string): OnTextChangeActionType => ({type: TEXT_CHANGE, text});
-export let onAddTodo = () => ({type: ADD_TODO});
-export let toggleInputState = (): OnToggleInputStateActionType => ({type: TOGGLE_INPUT_STATE});
-export let toggleTodoComplete = (id: string): OnToggleTodoCompleteActionType => ({type: TOGGLE_TODO_COMPLETE, id});
+export const onTextChange = (text: string): OnTextChangeActionType => ({type: TEXT_CHANGE, text});
+export const onAddTodo = () => ({type: ADD_TODO});
+export const toggleInputState = (): OnToggleInputStateActionType => ({type: TOGGLE_INPUT_STATE});
+export const toggleTodoComplete = (id: string): OnToggleTodoCompleteActionType => ({type: TOGGLE_TODO_COMPLETE, id});
 export const deleteTodo = (id: string): DeleteTodoActionType => ({type: DELETE_TODO, id});
 
 export default homeReducer;
