@@ -15,7 +15,7 @@ const Todos = () => {
 
     let todos:Array<TodoType> = useSelector((state:any) => state.home.todos);
     let JSXtodos: Array<JSX.Element> = todos.map((el:TodoType) => {
-        return <Todo key={el.text} text = {el.text}/>
+        return <Todo key={el.id} id={el.id} text = {el.text}/>
     })
 
     return (
