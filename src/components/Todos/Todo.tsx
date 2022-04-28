@@ -1,11 +1,14 @@
 import React, {useId} from 'react';
-import {Button, Paper, styled, SvgIcon} from "@mui/material";
-import {Check, Edit, Delete} from "@mui/icons-material";
+import {Box, Button, Paper, styled, SvgIcon} from "@mui/material";
+import {Check, Edit, Delete, Clear} from "@mui/icons-material";
+import {useDispatch} from "react-redux";
+import {deleteTodo, onTextChange, toggleTodoComplete} from "../../redux/home-reducer";
 
 type TodoPropsType = {
     id: string,
     key: string,
     text: string,
+    isComplete: boolean,
 }
 
 
@@ -18,19 +21,22 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const Todo = (props: TodoPropsType) => {
-
+    let TodoTextStyle = {
+        textDecoration: (props.isComplete) ? "line-through" : "none",
+    }
+    const dispatch = useDispatch();
     return (
         <Item>
-            <div>
+            <Box sx={TodoTextStyle}>
                 {props.text}
-            </div>
-            <Button>
-                <Check/>
+            </Box>
+            <Button onClick = {(e) => {dispatch(toggleTodoComplete(props.id))}}>
+                {(props.isComplete) ? <Clear/> : <Check/>}
             </Button>
             <Button>
                 <Edit/>
             </Button>
-            <Button>
+            <Button onClick = {() => {dispatch(deleteTodo(props.id))}}>
                 <Delete/>
             </Button>
         </Item>
