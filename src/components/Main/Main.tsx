@@ -27,15 +27,14 @@ const Main = () => {
     let addTodo = () => {
         dispatch(onAddTodo());
     }
-    let inputText = useSelector<string>((state:any) => state.home.inputText);
-    let a: boolean = true;
-    let inputState = useSelector<boolean>((state:any) => state.home.inputState);
+    let inputText = useSelector((state:any):string => state.home.inputText);
+    let inputState = useSelector((state:any):boolean => state.home.inputState);
     console.log(inputText);
     return (
         <Box sx={MainStyle} >
             <Box sx={InputStyle}>
             <TextField id="outlined-basic"
-                       error = {inputState as boolean}
+                       error = {inputState}
                        value={inputText}
                        onChange={(e)=>{changeText(e.target.value)}}
                        label="To do ..."

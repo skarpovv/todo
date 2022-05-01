@@ -11,10 +11,17 @@ let StyledTodos: object = {
     transition: "all ease 0.6s"
 }
 
-const Todos = () => {
-    console.log("Im Todos, i was randered")
+let filterTodos = (todos: Array<TodoType>, filter: "all" | "current" | "completed"):Array<TodoType> => {
+    if (filter === "all") return todos;
+    if (filter === "current") return todos.filter((el) => el.isComplete === false);
+    if (filter === "completed") return todos.filter((el) => el.isComplete === true);
+}
 
-    let todos:Array<TodoType> = useSelector((state:any) => state.home.todos);
+const Todos = () => {
+    let filter = useSelector((state:any):"all" | "current" | "completed" => state.home.filter);
+
+    let todos:Array<TodoType> = filterTodos(useSelector((state:any) => state.home.todos), filter);
+
     let JSXtodos: Array<JSX.Element> = todos.map((el:TodoType) => {
         return <Todo isEdit={el.isEdit} key={el.id} id={el.id} text = {el.text} isComplete = {el.isComplete}/>
     })

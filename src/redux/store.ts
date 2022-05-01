@@ -14,6 +14,8 @@ const store = createStore(
     )
 );
 
+console.log(typeof store);
+
 export default store;
 
 

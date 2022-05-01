@@ -8,6 +8,7 @@ export type InitStateType = {
     todos: Array<TodoType>,
     inputText: string,
     inputState: boolean,
+    filter: "all" | "current" | "completed",
 }
 
 type OnTextChangeActionType = {
@@ -28,18 +29,24 @@ type DeleteTodoActionType = {
     type: typeof DELETE_TODO,
     id: string,
 }
+type SetFilterActionType = {
+    type: typeof SET_FILTER,
+    value: string,
+}
 
 const TEXT_CHANGE = "TEXT_CHANGE";
 const ADD_TODO = "ADD_TODO";
 const TOGGLE_INPUT_STATE = "TOGGLE_INPUT_STATE";
 const TOGGLE_TODO_COMPLETE = "TOGGLE_TODO_COMPLETE";
 const DELETE_TODO = "DELETE_TODO";
+const SET_FILTER = "SET_FILTER";
 
 
 let initState: InitStateType = {
     todos: [],
     inputText: "",
-    inputState: false
+    inputState: false,
+    filter: "all"
 }
 
 let homeReducer = (state = initState, action: any):InitStateType => {
@@ -80,6 +87,12 @@ let homeReducer = (state = initState, action: any):InitStateType => {
                 todos: state.todos.filter((el) => action.id != el.id),
             }
         }
+        case SET_FILTER:{
+            return {
+                ...state,
+                filter: action.value,
+            }
+        }
         default:
             return state;
     }
@@ -90,5 +103,6 @@ export const onAddTodo = () => ({type: ADD_TODO});
 export const toggleInputState = (): OnToggleInputStateActionType => ({type: TOGGLE_INPUT_STATE});
 export const toggleTodoComplete = (id: string): OnToggleTodoCompleteActionType => ({type: TOGGLE_TODO_COMPLETE, id});
 export const deleteTodo = (id: string): DeleteTodoActionType => ({type: DELETE_TODO, id});
+export const setFilter = (value: "all" | "current" | "completed"): SetFilterActionType => ({type: SET_FILTER, value});
 
 export default homeReducer;
