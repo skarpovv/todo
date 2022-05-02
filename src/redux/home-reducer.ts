@@ -42,12 +42,12 @@ const DELETE_TODO = "DELETE_TODO";
 const SET_FILTER = "SET_FILTER";
 
 
-let initState: InitStateType = {
+let initState: InitStateType = (localStorage["redux-store"]) ? JSON.parse(localStorage["redux-store"]) : {
     todos: [],
     inputText: "",
     inputState: false,
     filter: "all"
-}
+};
 
 let homeReducer = (state = initState, action: any):InitStateType => {
     switch (action.type){
