@@ -14,9 +14,9 @@ const store = createStore(
     )
 );
 
-store.subscribe(()=> {
-    localStorage["redux-store"] = JSON.stringify(store.getState().home);
-})
+//store.subscribe(()=> {
+  //  localStorage["redux-store"] = JSON.stringify(store.getState().home);
+//})
 
 export default store;
 

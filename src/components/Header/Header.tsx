@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Box, AppBar, IconButton, Toolbar, Typography, Button, ToggleButton, ToggleButtonGroup} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import {useDispatch, useSelector} from "react-redux";
@@ -8,6 +8,8 @@ import {red} from "@mui/material/colors";
 const Header = () => {
     let filter = useSelector((state:any):string => state.home.filter);
     const dispatch = useDispatch();
+    const home = useSelector((state:any):InitStateType => state.home);
+
     return (
         <Box sx={{ flexGrow: 1}}>
             <AppBar position="static" sx={{backgroundColor: "#32b87b"}}>

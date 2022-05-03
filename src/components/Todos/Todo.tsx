@@ -1,8 +1,16 @@
 import React, {useId} from 'react';
 import {Box, Button, Input, Paper, styled, SvgIcon, TextField} from "@mui/material";
 import {Check, Edit, Delete, Clear} from "@mui/icons-material";
-import {useDispatch} from "react-redux";
-import {deleteTodo, onTextChange, toggleTodoComplete} from "../../redux/home-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    deleteTodo,
+    editTodo,
+    onEditTextChange,
+    onTextChange,
+    setEdit,
+    toggleTodoComplete,
+    cancelEdit
+} from "../../redux/home-reducer";
 
 type TodoPropsType = {
     id: string,
@@ -31,6 +39,7 @@ const Todo = (props: TodoPropsType) => {
         color: (props.isComplete) ? "#900" : "black",
         transition: "all ease 0.6s",
     }
+    let editText = useSelector((state:any):string => state.home.editText);
     const dispatch = useDispatch();
     return (
         (!props.isEdit) ?
@@ -41,7 +50,10 @@ const Todo = (props: TodoPropsType) => {
             <Button onClick = {(e) => {dispatch(toggleTodoComplete(props.id))}}>
                 {(props.isComplete) ? <Clear color={"error"}/> : <Check/>}
             </Button>
-            <Button disabled={props.isComplete}>
+            <Button disabled={props.isComplete} onClick={() => {
+                dispatch(setEdit(props.id));
+                dispatch(onEditTextChange(props.text));
+            }}>
                 <Edit color={(props.isComplete) ? "error" : "primary"}/>
             </Button>
             <Button onClick = {() => {dispatch(deleteTodo(props.id))}}>
@@ -51,15 +63,16 @@ const Todo = (props: TodoPropsType) => {
         :
         <Item>
             <TextField id="outlined-basic"
-                       onChange={(e)=>{}}
+                       onChange={(e)=>{dispatch(onEditTextChange(e.target.value))}}
                        label="To do ..."
                        variant="outlined"
                        sx={{width: "100%", outlineColor: "#32b87b", borderColor: "#32b87b"}}
+                       value={editText}
             />
-            <Button>
+            <Button onClick={() => {dispatch(editTodo(props.id)); dispatch(cancelEdit())}}>
                 <Check/>
             </Button>
-            <Button>
+            <Button onClick = {() => {dispatch(cancelEdit())}}>
                 <Clear color="error"/>
             </Button>
         </Item>

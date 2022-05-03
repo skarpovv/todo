@@ -2,7 +2,7 @@ import React, {KeyboardEventHandler} from 'react';
 import {Box, Button, TextField} from '@mui/material';
 import Todos from "../Todos/Todos";
 import {useDispatch, useSelector} from "react-redux";
-import {InitStateType, onAddTodo, onTextChange, toggleInputState} from "../../redux/home-reducer";
+import {InitStateType, onAddTodo, onTextChange, TodoType, toggleInputState} from "../../redux/home-reducer";
 
 let MainStyle: object = {
     margin: "0 auto",
@@ -24,11 +24,19 @@ const Main = () => {
     let changeText = (text:string) => {
         dispatch(onTextChange(text));
     }
-    let addTodo = () => {
-        dispatch(onAddTodo());
+    let addTodo = (inputText: string) => {
+        if (inputText) {
+            dispatch(onAddTodo());
+            dispatch(onTextChange(""));
+        }
+        else{
+            dispatch(toggleInputState());
+            setTimeout(()=> {dispatch(toggleInputState())},500);
+        }
     }
     let inputText = useSelector((state:any):string => state.home.inputText);
     let inputState = useSelector((state:any):boolean => state.home.inputState);
+    let todos = useSelector((state:any):Array<TodoType> => state.home.todos);
     console.log(inputText);
     return (
         <Box sx={MainStyle} >
@@ -46,12 +54,8 @@ const Main = () => {
                 sx={{backgroundColor: "#32b87b", '&:hover':{backgroundColor: "#43c98c"}}}
                 variant="contained"
                 onClick={(e) => {
-                    if (inputText) {addTodo(); changeText("")}
-                    else {
-                        dispatch(toggleInputState())
-                        setTimeout(()=>{dispatch(toggleInputState())}, 500);
-                    }
-                }}>Add Todo</Button>
+                    addTodo(inputText);
+                } }>Add Todo</Button>
             </Box>
             <Todos/>
         </Box>

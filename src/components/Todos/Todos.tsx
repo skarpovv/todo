@@ -23,7 +23,6 @@ const Todos = () => {
     let todos:Array<TodoType> = filterTodos(useSelector((state:any):Array<TodoType> => state.home.todos), filter);
 
     let JSXtodos: Array<JSX.Element> = useMemo(() => todos.map((el:TodoType) => {
-        console.log("JSX TODOS CREATE PROCESS")
         return <Todo isEdit={el.isEdit} key={el.id} id={el.id} text = {el.text} isComplete = {el.isComplete}/>
     }),[todos]);
 
