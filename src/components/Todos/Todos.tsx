@@ -5,7 +5,7 @@ import {TodoType} from "../../redux/home-reducer";
 import Todo from "./Todo";
 
 let StyledTodos: object = {
-    width: "70%",
+    maxWidth: "512px",
     margin: "0 auto",
     border: "10px solid #fff",
     transition: "all ease 0.6s"
@@ -19,9 +19,7 @@ let filterTodos = (todos: Array<TodoType>, filter: "all" | "current" | "complete
 
 const Todos = () => {
     let filter = useSelector((state:any):"all" | "current" | "completed" => state.home.filter);
-    debugger;
     let todos:Array<TodoType> = filterTodos(useSelector((state:any):Array<TodoType> => state.home.todos), filter);
-
     let JSXtodos: Array<JSX.Element> = useMemo(() => todos.map((el:TodoType) => {
         return <Todo isEdit={el.isEdit} key={el.id} id={el.id} text = {el.text} isComplete = {el.isComplete}/>
     }),[todos]);

@@ -6,7 +6,7 @@ import {onAddTodo, onTextChange, toggleInputState} from "../../redux/home-reduce
 
 let MainStyle: object = {
     margin: "0 auto",
-    width: "50%",
+    maxWidth: "759px",
     height: "100%",
     backgroundColor: "white",
     textAlign: "center",
