@@ -1,14 +1,12 @@
-import React, {useEffect} from 'react';
-import {Box, AppBar, IconButton, Toolbar, Typography, Button, ToggleButton, ToggleButtonGroup} from "@mui/material";
+import React from 'react';
+import {Box, AppBar, IconButton, Toolbar, Typography, ToggleButton, ToggleButtonGroup} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import {useDispatch, useSelector} from "react-redux";
-import {InitStateType, setFilter} from "../../redux/home-reducer";
-import {red} from "@mui/material/colors";
+import {setFilter} from "../../redux/home-reducer";
 
 const Header = () => {
     let filter = useSelector((state:any):string => state.home.filter);
     const dispatch = useDispatch();
-    const home = useSelector((state:any):InitStateType => state.home);
 
     return (
         <Box sx={{ flexGrow: 1}}>
@@ -34,13 +32,13 @@ const Header = () => {
                         color="primary"
                         value={filter}
                         exclusive
-                        onChange={(event, value)=>{dispatch(setFilter(value))}}
+                        onChange={(event, value)=>{ value && dispatch(setFilter(value))}}
                     >
                         <ToggleButton value="all">All</ToggleButton>
                         <ToggleButton value="current">Current TO DO</ToggleButton>
                         <ToggleButton value="completed">Completed</ToggleButton>
                     </ToggleButtonGroup>
-                    <Button color="inherit">Login</Button>
+
                 </Toolbar>
             </AppBar>
         </Box>

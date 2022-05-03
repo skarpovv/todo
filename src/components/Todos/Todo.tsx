@@ -1,12 +1,11 @@
-import React, {useId} from 'react';
-import {Box, Button, Input, Paper, styled, SvgIcon, TextField} from "@mui/material";
+import React from 'react';
+import {Box, Button, Paper, styled, TextField} from "@mui/material";
 import {Check, Edit, Delete, Clear} from "@mui/icons-material";
 import {useDispatch, useSelector} from "react-redux";
 import {
     deleteTodo,
     editTodo,
     onEditTextChange,
-    onTextChange,
     setEdit,
     toggleTodoComplete,
     cancelEdit
@@ -47,7 +46,7 @@ const Todo = (props: TodoPropsType) => {
             <Box sx={TodoTextStyle}>
                 {props.text}
             </Box>
-            <Button onClick = {(e) => {dispatch(toggleTodoComplete(props.id))}}>
+            <Button onClick = {() => {dispatch(toggleTodoComplete(props.id))}}>
                 {(props.isComplete) ? <Clear color={"error"}/> : <Check/>}
             </Button>
             <Button disabled={props.isComplete} onClick={() => {
@@ -69,7 +68,7 @@ const Todo = (props: TodoPropsType) => {
                        sx={{width: "100%", outlineColor: "#32b87b", borderColor: "#32b87b"}}
                        value={editText}
             />
-            <Button onClick={() => {dispatch(editTodo(props.id)); dispatch(cancelEdit())}}>
+            <Button disabled={!editText} onClick={() => {dispatch(editTodo(props.id)); dispatch(cancelEdit())}}>
                 <Check/>
             </Button>
             <Button onClick = {() => {dispatch(cancelEdit())}}>

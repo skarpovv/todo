@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import {Box, Stack} from "@mui/material";
 import {useSelector} from "react-redux";
-import {InitStateType, TodoType} from "../../redux/home-reducer";
+import {TodoType} from "../../redux/home-reducer";
 import Todo from "./Todo";
 
 let StyledTodos: object = {
@@ -19,7 +19,7 @@ let filterTodos = (todos: Array<TodoType>, filter: "all" | "current" | "complete
 
 const Todos = () => {
     let filter = useSelector((state:any):"all" | "current" | "completed" => state.home.filter);
-
+    debugger;
     let todos:Array<TodoType> = filterTodos(useSelector((state:any):Array<TodoType> => state.home.todos), filter);
 
     let JSXtodos: Array<JSX.Element> = useMemo(() => todos.map((el:TodoType) => {
